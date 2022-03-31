@@ -132,6 +132,7 @@ dmypy.json
 to_do.txt
 tmp.txt
 settings.json
+.vscode/launch.json
 .vscode/settings.json
 config.yml
 *.pyc
