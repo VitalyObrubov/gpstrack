@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Главная{% endblock %} :: GPS monitoring</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'monitoring/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>GPS monitoring</h1>
+    </header>
+    <nav>
+        <a href="{% url 'index' %}">Главная</a>        
+        <a href="{% url 'monitoring' %}">Monitoring</a>
+        <a href="{% url 'add_tracker' %}">Create tracker</a>
+    </nav>
+    <section>
+        {% block content %}
+        {% endblock %}
+    </section>
+</body>
