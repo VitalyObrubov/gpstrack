@@ -1,3 +1,6 @@
 django==4.0.3
 psycopg2-binary==2.9.3
 requests==2.27.1
+wheel==0.37.1
+bootstrap4==0.1.0
+django-bootstrap4==22.1

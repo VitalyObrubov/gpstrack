@@ -17,7 +17,7 @@ class Trackers(models.Model):
 
 
 class Tracks(models.Model):
-    tracker_m = models.ForeignKey(Trackers, on_delete=models.DO_NOTHING, null=True, related_name='trackers', verbose_name='Трекер')
+    tracker_m = models.ForeignKey(Trackers, on_delete=models.DO_NOTHING, null=True, related_name='tracks', verbose_name='Трекер')
     tracker_id = models.IntegerField(verbose_name='ИД трекера')
     lon = models.FloatField(null=True, blank=True, verbose_name='Долгота')  
     lat = models.FloatField(null=True, blank=True, verbose_name='Широта')
@@ -30,6 +30,7 @@ class Tracks(models.Model):
         verbose_name_plural = 'Треки' 
         verbose_name = 'POI' 
         ordering = ['timestamp']
+
 
     
  

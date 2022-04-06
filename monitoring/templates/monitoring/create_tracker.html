@@ -1,14 +1,15 @@
 {% extends "layout/basic.html" %}
 {% block content %}
     <h1>Добавление трекера</h1>
-    <div>
-        <a href="{% url 'index' %}">Главная</a>        
-        <a href="{% url 'monitoring' %}">Monitoring</a>
-        <a href="{% url 'add_tracker' %}">Create tracker</a>      
-    </div>
     <form method='post'>
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Добавить">
     </form>
+    <script type="text/javascript">
+        user_fild = document.getElementById("id_user");
+        user_fild.value = {{user.pk}}
+        user_fild.disabled = true
+
+    </script>
 {% endblock %}
