@@ -1,8 +1,20 @@
+
+const MY_COLOR = 'green';
+const OTHER_COLOR = 'red';
+let map;
+function loadJson(selector) {
+    return JSON.parse(document.querySelector(selector).getAttribute('data-json'));
+}
+
 initMap = () => {
     map = new ymaps.Map("map", {
         center: [54.514403, 36.259522],
         zoom: 14
-    });
+    });   
+    let trackers = loadJson('#jsonData');
+    trackers.forEach(function(tracker) {
+        addMark(tracker["tracker_id"],tracker["lat"],tracker["lon"],tracker["tracker_name"]);
+      });   
 }
 
 let marks = new Map();

@@ -6,12 +6,12 @@
     <div id="map" style="width: 80vw; height: 80vh"></div>   
 {% endblock %}
 {% block scripts %}
-<script type="application/javascript" src="{{ STATIC_URL }}monitoring/js/global.js"></script>
-<script type="application/javascript" src="{{ STATIC_URL }}monitoring/js/utils.js"></script>
+<div style="display: none" id="jsonData" data-json="{{ trackers }}"></div>
+
 <script type="application/javascript" src="{{ STATIC_URL }}monitoring/js/map.js"></script>
-<script type="application/javascript" src="{{ STATIC_URL }}monitoring/js/network.js"></script>
-<script type="application/javascript" src="{{ STATIC_URL }}monitoring/js/app.js"></script>
+
 <script type="text/javascript">
-    ymaps.ready(init);
+    ymaps.ready(initMap);
 </script>
+
 {% endblock %}

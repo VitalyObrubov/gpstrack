@@ -8,13 +8,13 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+import json
+from typing import List, Dict
+from dataclasses import asdict
 
-from .forms import RegisterUserForm, ProfileForm
-
-
-
+from .forms import RegisterUserForm, ProfileForm, TrackerForm
 from listenports.models import Trackers
-from .forms import TrackerForm
+
 
 class IndexView(View):
     def post(self, request):
@@ -32,12 +32,19 @@ class MonitoringView(LoginRequiredMixin, View):
         trackers = []
         for tracker in request.user.trackers_set.all():
             tracker_d = {}
-            tracker_d["tracker"] = tracker
-            tracker_d["pos"] = tracker.tracks.last()
-            tracker_d["track"] = tracker.tracks.all()
+            tracker_d["tracker_id"] = tracker.tracker_id
+            tracker_d["tracker_name"] = tracker.description
+            try:
+                pos = tracker.tracks.latest("timestamp")
+                tracker_d["lon"] = pos.lon
+                tracker_d["lat"] = pos.lat
+                #tracker_d["track"] = tracker.tracks.all()
+            except:
+                tracker_d["lon"] = 0
+                tracker_d["lat"] = 0              
             trackers.append(tracker_d)
 
-        context["trackers"] = trackers    
+        context["trackers"] = json.dumps(trackers, ensure_ascii=False)
 
 
         return render(request, 'monitoring/monitoring.html', context)
