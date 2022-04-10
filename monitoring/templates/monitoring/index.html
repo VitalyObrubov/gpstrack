@@ -1,5 +1,21 @@
 {% extends "layout/basic.html" %}
+{% load static %}
 {% block content %}
     <h1>GPS monitoring</h1>
-    
+    <p> Сайт для мониторинга программных gps трекеров Traccar клиент</p>
+    <p> установите приложение Traccar клиент на смартфон</p>
+    <p> Зарегистрируйтесь на сайте и зарегистрируйте трекер</p>
+    <p> ИД трекера -- любое число, если скажет, что такой трекер уже есть, пробуйте другое</p>
+    <p> в приложении на смартфоне идентификатор устройства установите такой же как ИД трекера</p>
+    <p> URL сервера укажите http://193.29.56.83:8000/sendgps/</p>
+    <br/>    
+
+    <p> Ссылка на Play Market</p>
+    <a href="https://play.google.com/store/apps/details?id=org.traccar.client">Traccar клиент</a>
+    <br/>
+    <img src="{% static 'monitoring/play_market.png' %}" width="150" height="150" hspace="10" vspace="1"/>
+    <p> Ссылка на App Store</p>
+    <a href="https://itunes.apple.com/us/app/traccar-client/id843156974">Traccar клиент</a>
+    <br/>
+    <img src="{% static 'monitoring/app_store.png' %}" width="150" height="150" hspace="10" vspace="1"/>
 {% endblock %}

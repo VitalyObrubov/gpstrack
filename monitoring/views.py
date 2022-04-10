@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.forms import inlineformset_factory
 from django.http import HttpResponse, HttpResponseForbidden
 from django.views.generic.base import View
 from django.views.generic.edit import CreateView
@@ -42,12 +43,20 @@ class TrackerCreateView(LoginRequiredMixin, CreateView):
 class ProfileView(LoginRequiredMixin, View):
     form_class = ProfileForm 
     def post(self, request):
-        return HttpResponse()
+        TrackersFormSet = inlineformset_factory(User, Trackers, fields = "__all__", extra = 1)
+        formset = TrackersFormSet(request.POST, instance=request.User)
+        if formset.is_valid():
+            formset.save()
+            context = {"formset:formset"}
+            return render(request, 'registration/profile.html', context)
+
 
     def get(self, request,**kwargs):
-        context = {}
-        context['trackers'] = request.user.trackers_set.all()
-        return render(request, 'registration/profile.html',context)
+        TrackersFormSet = inlineformset_factory(User, Trackers, fields = "__all__", extra = 1) 
+        formset = TrackersFormSet(instance=request.User)
+
+        context = {"formset:formset"}
+        return render(request, 'registration/profile.html', context)
 
 
 class RegisterUserView(CreateView):

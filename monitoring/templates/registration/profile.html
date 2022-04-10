@@ -1,19 +1,39 @@
 {% extends "layout/basic.html" %}
 {% block title %} Профиль  пользователя {% endblock %}
 {% block content %}
-<h2>Профиль пользователя {{ user.username }}</h2>
-{% if user.first_name and user.username %}
-<p>Здравствуйте, {{ user.first_name }} {{ user.last_name }}!</p>
-{% else %}
-<p>Здравствуйте!</p>
-{% endif %}
-<h3>Ваши трекеры :</h3>
-{% for tr in trackers %}
-<div>
-    <p>{{ tr.tracker_id }} {{ tr.description }}</p>
-</div>
+    {% csrf_token %}
+    {{ formset .management_fonn }}
+    {% if formset.non_form_errors %}
+    <ul>
+    {% for error in formset.non_form_errors %} 
+    <lixem>{{ error|escape }}</emx/li>
+    {% endfor %}
+    </ul>
+    {% endif %}
 
-{% endfor %}
+    <h2>Профиль пользователя {{ user.username }}</h2>
+    {% if user.first_name and user.username %}
+        <p>Здравствуйте, {{ user.first_name }} {{ user.last_name }}!</p>
+    {% else %}
+        <p>Здравствуйте!</p>
+    {% endif %}
+    <h3>Ваши трекеры :</h3>
+    {% for form in formset %}
 
+        {% for field in form.visible_fields %}
+            {% if field.errors %}
+            <ul>
+                {% for error in field.errors %} 
+                <li><em>{{ error|escape }}</em></li> 
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <p>{{ field.label—tag }}<br>{{ field }}<br> 
+            {{ field.help_text }}</p>
+        {% endfor %}
+
+
+    {% endfor %}
+    <input type="submit" value="Coxpaнить">
 
 {% endblock %}
