@@ -43,19 +43,19 @@ class TrackerCreateView(LoginRequiredMixin, CreateView):
 class ProfileView(LoginRequiredMixin, View):
     form_class = ProfileForm 
     def post(self, request):
-        TrackersFormSet = inlineformset_factory(User, Trackers, fields = "__all__", extra = 1)
-        formset = TrackersFormSet(request.POST, instance=request.User)
+        TrackersFormSet = inlineformset_factory(User, Trackers, form = TrackerForm, fields = "__all__", extra = 1)
+        formset = TrackersFormSet(request.POST, instance=request.user)
         if formset.is_valid():
             formset.save()
-            context = {"formset:formset"}
+            context = {"formset":formset,}
             return render(request, 'registration/profile.html', context)
 
 
     def get(self, request,**kwargs):
         TrackersFormSet = inlineformset_factory(User, Trackers, fields = "__all__", extra = 1) 
-        formset = TrackersFormSet(instance=request.User)
+        formset = TrackersFormSet(instance=request.user)
 
-        context = {"formset:formset"}
+        context = {"formset":formset,}
         return render(request, 'registration/profile.html', context)
 
 

@@ -7,10 +7,11 @@ from django.contrib.auth.models import User
 from listenports.models import Trackers
 
 class TrackerForm(forms.ModelForm):   
-    user =  forms.ModelChoiceField(queryset=User.objects.all(), label='Пользователь', widget=forms.widgets.Input)
+    description =  forms.CharField(label='Описание', widget=forms.widgets.TextInput())
+
     class Meta:
         model = Trackers
-        fields = ('user', 'tracker_id', 'description', 'resend')
+        fields = ('tracker_id', 'description', 'resend')
 
 class ProfileForm(forms.ModelForm):
     

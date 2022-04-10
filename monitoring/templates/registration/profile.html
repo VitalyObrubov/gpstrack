@@ -2,7 +2,7 @@
 {% block title %} Профиль  пользователя {% endblock %}
 {% block content %}
     {% csrf_token %}
-    {{ formset .management_fonn }}
+    {{ formset.management_form }}
     {% if formset.non_form_errors %}
     <ul>
     {% for error in formset.non_form_errors %} 
@@ -18,22 +18,9 @@
         <p>Здравствуйте!</p>
     {% endif %}
     <h3>Ваши трекеры :</h3>
-    {% for form in formset %}
-
-        {% for field in form.visible_fields %}
-            {% if field.errors %}
-            <ul>
-                {% for error in field.errors %} 
-                <li><em>{{ error|escape }}</em></li> 
-                {% endfor %}
-            </ul>
-            {% endif %}
-            <p>{{ field.label—tag }}<br>{{ field }}<br> 
-            {{ field.help_text }}</p>
-        {% endfor %}
-
-
-    {% endfor %}
+    <table>
+        {{ formset.as_table }}
+    </table>
     <input type="submit" value="Coxpaнить">
 
 {% endblock %}
