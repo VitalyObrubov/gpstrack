@@ -2,16 +2,38 @@
 {% block title %}GPS monitoring{% endblock %}
 
 {% block content %}
-    <h1>GPS monitoring</h1>
+     <fieldset>
+        <legend>Параметры трека:</legend> 
+        <div>
+            <label for="start_date">Период </label>
+            <input type="date" id = "start_date" name="start_date">
+            <input type="date" id = "end_date" name="end_date">
+        </div>
+        <div>   
+        {% for tr in trackers %}
+            <input type="radio" value = {{ tr.id }} id = "tr_{{ tr.id }}" name="tracker"> <label for="tr_{{ tr.id }}">{{ tr.tracker_id }} {{ tr.description }}</label>
+        {% endfor %}
+        </div>
+        <div>
+            <input type="button" onclick="getTrack()" value = "Показать трек" id = "getTrack">
+            <input type="button" onclick="delTrack()" value = "Скрыть трек" id = "delTrack">
+        </div>
+    </fieldset>
     <div id="map" style="width: 80vw; height: 80vh"></div>   
 {% endblock %}
+{% load static %}
 {% block scripts %}
-<div style="display: none" id="jsonData" data-json="{{ trackers }}"></div>
-
-<script type="application/javascript" src="{{ STATIC_URL }}monitoring/js/map.js"></script>
-
+<script type="application/javascript" src="{% static 'monitoring/network.js' %}"></script>
+<script type="application/javascript" src="{% static 'monitoring/global.js' %}"></script>
+<script type="application/javascript" src="{% static 'monitoring/app.js' %}"></script>
+<script type="application/javascript" src="{% static 'monitoring/map.js' %}"></script>
 <script type="text/javascript">
-    ymaps.ready(initMap);
+    document.getElementById("getTrack").onclick = getTrack;
+    document.getElementById("delTrack").onclick = delTrack;
+    path = '${CONNECT_PATH}';
+    user_id = {{ user.id }}
+    ymaps.ready(init);
 </script>
+
 
 {% endblock %}

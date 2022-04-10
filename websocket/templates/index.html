@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Websockets</title>
+
+</head>
+<body>
+    <header>
+        <h1>Websockets</h1>
+    </header>
+
+</body>
+<script>
+    let socket = new WebSocket('ws://localhost:8000/ws/connect/');
+    let timer = null;
+
+    socket.onopen = () => {
+        timer = setInterval(() => {
+            socket.send('hello');
+        }, 1000);
+    };
+
+    socket.onclose = socket.onerror = () => {
+        clearInterval(timer);
+    };
+</script>
+</html>

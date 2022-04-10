@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'listenports.apps.ListenportsConfig',
     'monitoring.apps.MonitoringConfig',
+    'websocket.apps.WebsocketConfig',
     'bootstrap4',
 ]
 
@@ -124,11 +125,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = '/home/vitaly/gpstrack/static'
+STATICFILES_DIRS = [
+    'monitoring/static/monitoring',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGOUT_REDIRECT_URL = 'monitorinf:index'
+LOGOUT_REDIRECT_URL = 'monitoring:index'
 

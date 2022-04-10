@@ -3,14 +3,17 @@ from django import forms
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
+from django.contrib.auth.models import User
 from listenports.models import Trackers
 
 class TrackerForm(forms.ModelForm):   
+    user =  forms.ModelChoiceField(queryset=User.objects.all(), label='Пользователь', widget=forms.widgets.Input)
     class Meta:
         model = Trackers
         fields = ('user', 'tracker_id', 'description', 'resend')
 
 class ProfileForm(forms.ModelForm):
+    
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name','email')

@@ -28,36 +28,16 @@ class MonitoringView(LoginRequiredMixin, View):
         return HttpResponse()
 
     def get(self, request):
-        context={}
-        trackers = []
-        for tracker in request.user.trackers_set.all():
-            tracker_d = {}
-            tracker_d["tracker_id"] = tracker.tracker_id
-            tracker_d["tracker_name"] = tracker.description
-            try:
-                pos = tracker.tracks.latest("timestamp")
-                tracker_d["lon"] = pos.lon
-                tracker_d["lat"] = pos.lat
-                #tracker_d["track"] = tracker.tracks.all()
-            except:
-                tracker_d["lon"] = 0
-                tracker_d["lat"] = 0              
-            trackers.append(tracker_d)
-
-        context["trackers"] = json.dumps(trackers, ensure_ascii=False)
-
-
-        return render(request, 'monitoring/monitoring.html', context)
+        context = {}
+        context['trackers'] = request.user.trackers_set.all()
+        return render(request, 'monitoring/monitoring.html',context)
         
 
 class TrackerCreateView(LoginRequiredMixin, CreateView):
     template_name = 'monitoring/create_tracker.html' 
-    form_class = TrackerForm 
+    form_class = TrackerForm
     success_url = reverse_lazy('monitoring')
 
-@login_required
-def profile(request):
-    return render(request, 'registration/profile.html')
 
 class ProfileView(LoginRequiredMixin, View):
     form_class = ProfileForm 
@@ -66,7 +46,6 @@ class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request,**kwargs):
         context = {}
-         # super().get_context_data(**kwargs) 
         context['trackers'] = request.user.trackers_set.all()
         return render(request, 'registration/profile.html',context)
 
