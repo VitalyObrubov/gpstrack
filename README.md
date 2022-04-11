@@ -1,4 +1,4 @@
-#gpstracл
+#gpstrack
 GPS monitoring
 Сайт для мониторинга программных gps трекеров Traccar клиент
 Написан на Python с использованием фреймворка Django и websockets
