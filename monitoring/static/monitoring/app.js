@@ -12,9 +12,24 @@ onMessage = (msg) => {
     if (kind === INITIAL) {
         onFullyConnected(payload);
     } else if (kind === TRACKERS) {
+        let radios = document.querySelectorAll('input[type="radio"]');
+        tracker_id=0;
+        for (let radio of radios) {
+            if (radio.checked) {
+                tracker_id = radio.value;
+            }
+        }
+        let c_lat = 0; let c_lon = 0;
         for (let tracker of payload['trackers']) {
             removeMark(tracker['tracker_id']);
             addMark(tracker['tracker_id'], tracker['lat'], tracker['lon'], tracker['tracker_name'], tracker['color']);
+            if (Number(tracker_id) === tracker['id']) {   
+                c_lat = tracker['lat'];
+                c_lon = tracker['lon'];
+            }
+        }
+        if (tracker_id>0){
+            map.setCenter([c_lat, c_lon]);
         }
     } else if (kind === TRACK) {
         showTrack(payload['jsontrack'])

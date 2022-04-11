@@ -48,6 +48,7 @@ def get_trackers(data: dict):
     user = User.objects.get(pk=user_id)
     for tracker in user.trackers_set.all():
         tracker_d = {}
+        tracker_d["id"] = tracker.pk
         tracker_d["tracker_id"] = tracker.tracker_id
         tracker_d["tracker_name"] = tracker.description
         try:
