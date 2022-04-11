@@ -18,9 +18,10 @@
         <p>Здравствуйте!</p>
     {% endif %}
     <h3>Ваши трекеры :</h3>
-    <table>
-        {{ formset.as_table }}
-    </table>
-    <input type="submit" value="Coxpaнить">
-
+    <form method='post'>
+        <table>
+            {{ formset.as_table }}
+        </table>
+        <input type="submit" value="Coxpaнить">
+    </form>
 {% endblock %}

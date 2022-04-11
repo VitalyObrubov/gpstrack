@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from listenports.models import Trackers
 
 class TrackerForm(forms.ModelForm):   
-    description =  forms.CharField(label='Описание', widget=forms.widgets.TextInput())
+    description =  forms.CharField(label='Описание', widget=forms.widgets.TextInput)
 
     class Meta:
         model = Trackers

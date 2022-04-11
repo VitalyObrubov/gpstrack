@@ -16,7 +16,6 @@
     <nav>
         <a href="{% url 'index' %}">Главная</a>        
         <a href="{% url 'monitoring' %}">Мониторинг</a>
-        <a href="{% url 'add_tracker' %}">Создать трекер</a>
         {% if user.is_authenticated %}
             <a href="/accounts/profile/">Профиль</a>
             <a href="/accounts/logout/">Выйти</a>

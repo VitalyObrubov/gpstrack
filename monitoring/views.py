@@ -52,7 +52,7 @@ class ProfileView(LoginRequiredMixin, View):
 
 
     def get(self, request,**kwargs):
-        TrackersFormSet = inlineformset_factory(User, Trackers, fields = "__all__", extra = 1) 
+        TrackersFormSet = inlineformset_factory(User, Trackers, form = TrackerForm, fields = "__all__", extra = 1) 
         formset = TrackersFormSet(instance=request.user)
 
         context = {"formset":formset,}

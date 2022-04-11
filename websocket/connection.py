@@ -182,7 +182,7 @@ class WebSocket:
         if self._test_if_can_receive(message):
             return message["text"]
         else:
-            return {"kind":"uncnown"}
+            return '{"kind":"uncnown"}'
 
     async def receive_bytes(self) -> bytes:
         message = await self.receive()
