@@ -136,3 +136,5 @@ settings.json
 .vscode/settings.json
 config.yml
 *.pyc
+test.gps
+track.gpx

@@ -33,10 +33,21 @@ onMessage = (msg) => {
         }
     } else if (kind === TRACK) {
         showTrack(payload['jsontrack'])
-
+    } else if (kind === FILE) {
+        get_file_url(payload['trackfile'])
     } else {
         console.log(`unsupported event kind ${kind}, data ${payload}`)
     }
+}
+
+get_file_url = (url) => {
+	var link_url = document.createElement("a");
+	link_url.download = url.substring((url.lastIndexOf("/") + 1), url.length);
+	link_url.href = url;
+	document.body.appendChild(link_url);
+	link_url.click();
+	document.body.removeChild(link_url);
+	delete link_url;
 }
 
 onFullyConnected = (payload) => {
@@ -71,6 +82,29 @@ getTrack = () => {
     if (tracker_id > 0){
         console.log(`get track`);
         connection.push(GET_TRACK, {
+            id: id, 
+            user_id: user_id, 
+            tracker_id:tracker_id,
+            start_date: start_date,
+            end_date: end_date 
+        });
+    }
+}
+
+getFile = () => {
+    if (!run) return;
+    let radios = document.querySelectorAll('input[type="radio"]');
+    start_date = document.getElementById("start_date").value;
+    end_date = document.getElementById("end_date").value;
+    tracker_id=0;
+    for (let radio of radios) {
+        if (radio.checked) {
+            tracker_id = radio.value;
+        }
+    }
+    if (tracker_id > 0){
+        console.log(`get track`);
+        connection.push(GET_FILE, {
             id: id, 
             user_id: user_id, 
             tracker_id:tracker_id,

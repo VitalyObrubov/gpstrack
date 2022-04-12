@@ -17,6 +17,7 @@
         <div>
             <input type="button" onclick="getTrack()" value = "Показать трек" id = "getTrack">
             <input type="button" onclick="delTrack()" value = "Скрыть трек" id = "delTrack">
+            <input type="button" onclick="getFile()" value = "Скачать трек" id = "getFile">
         </div>
     </fieldset>
     <div id="map" style="width: 80vw; height: 80vh"></div>   
@@ -30,6 +31,7 @@
 <script type="text/javascript">
     document.getElementById("getTrack").onclick = getTrack;
     document.getElementById("delTrack").onclick = delTrack;
+    document.getElementById("getFile").onclick = getFile;
     path = 'ws://localhost:8000/ws/connect/';
     user_id = {{ user.id }}
     ymaps.ready(init);
