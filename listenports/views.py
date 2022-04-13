@@ -24,7 +24,7 @@ class ListenPortView(View):
         dt = datetime.fromtimestamp(int(request.GET['timestamp']))
         new_datetime = timezone.make_aware(dt, timezone.utc)
         # Отбрасываем с низкой точностью
-        if request.GET['accuracy']>20:
+        if int(request.GET['accuracy'])>20:
             return HttpResponse()
         #  Отбрасываем если нереальная скорость 
         last_pos = last_positions.get(request.GET['id'])
