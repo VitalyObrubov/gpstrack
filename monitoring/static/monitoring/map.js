@@ -5,7 +5,6 @@ initMap = () => {
         center: [54.514403, 36.259522],
         zoom: 14
     });   
-  
 }
 
 let marks = new Map();

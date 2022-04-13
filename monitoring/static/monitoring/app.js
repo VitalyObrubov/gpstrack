@@ -28,7 +28,8 @@ onMessage = (msg) => {
                 c_lon = tracker['lon'];
             }
         }
-        if (tracker_id>0){
+        follow_tracker = document.getElementById("follow_tracker").checked;
+        if ((Number(tracker_id)>0) && (follow_tracker)){
             map.setCenter([c_lat, c_lon]);
         }
     } else if (kind === TRACK) {

@@ -10,9 +10,12 @@
             <input type="date" id = "end_date" name="end_date">
         </div>
         <div>   
-        {% for tr in trackers %}
-            <input type="radio" value = {{ tr.id }} id = "tr_{{ tr.id }}" name="tracker"> <label for="tr_{{ tr.id }}">{{ tr.tracker_id }} {{ tr.description }}</label>
-        {% endfor %}
+            {% for tr in trackers %}
+                <input type="radio" value = {{ tr.id }} id = "tr_{{ tr.id }}" name="tracker" onclick="ping()"> 
+                <label for="tr_{{ tr.id }}">{{ tr.tracker_id }} {{ tr.description }}</label>
+            {% endfor %}
+            <input type="checkbox" name="follow_tracker" id="follow_tracker" checked>
+            <label for="follow_tracker">Следовать за трекером</label>       
         </div>
         <div>
             <input type="button" onclick="getTrack()" value = "Показать трек" id = "getTrack">

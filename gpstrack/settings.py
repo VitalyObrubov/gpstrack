@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'listenports.apps.ListenportsConfig',
     'monitoring.apps.MonitoringConfig',
     'websocket.apps.WebsocketConfig',
-    'bootstrap4',
 ]
 
 MIDDLEWARE = [

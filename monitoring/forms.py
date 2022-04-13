@@ -8,25 +8,14 @@ from listenports.models import Trackers
 
 class TrackerForm(forms.ModelForm):   
     description =  forms.CharField(label='Описание', widget=forms.widgets.TextInput)
-
     class Meta:
         model = Trackers
         fields = ('tracker_id', 'description', 'resend')
 
-class ProfileForm(forms.ModelForm):
-    
-    class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name','email')
-
 class ChangeUserInfoForm(forms.ModelForm):
-    email = forms.EmailField(required=True,
-                             label='Адрес электронной почты')
-
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name')
-
+        fields = ('email', 'first_name', 'last_name')
 
 class RegisterUserForm(forms.ModelForm):
     email = forms.EmailField(required=True, label='Адрес электронной почты')
@@ -36,10 +25,8 @@ class RegisterUserForm(forms.ModelForm):
                                 help_text='Повторите пороль')
 
     def clean_password1(self):
-        password1 = self.cleaned_data['password1']
-        #if password1:
-        #    password_validation.validate_password(password1)
-        return password1
+       password1 = self.cleaned_data['password1']
+       return password1
 
     def clean(self):
         super().clean()

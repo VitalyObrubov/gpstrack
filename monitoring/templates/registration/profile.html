@@ -13,15 +13,18 @@
 
     <h2>Профиль пользователя {{ user.username }}</h2>
     {% if user.first_name and user.username %}
-        <p>Здравствуйте, {{ user.first_name }} {{ user.last_name }}!</p>
+        <h3>Здравствуйте, {{ user.first_name }} {{ user.last_name }}!</h3>
     {% else %}
-        <p>Здравствуйте!</p>
+        <h3>Здравствуйте!</h3>
     {% endif %}
-    <h3>Ваши трекеры :</h3>
+
     <form method='post'>
+        {{ user_form.as_p }}
+        <h4>Ваши трекеры :</h4>
         <table>
             {{ formset.as_table }}
         </table>
         <input type="submit" value="Coxpaнить">
+        <input type="button" onclick="document.location='/accounts/password_change/'" value="Сменить пароль">
     </form>
 {% endblock %}
