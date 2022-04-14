@@ -18,8 +18,10 @@ def bad_speed(last_pos, new_pos):
     speed = distance*1000/time
     new_pos['speed']=speed
     accel = (speed-last_pos['speed'])/time
-    if (speed > 30)or(accel>3):
+    if (speed > 30):
         res = True 
+    if (accel>3):
+         res = True
     return res
 
 
