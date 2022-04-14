@@ -11,11 +11,16 @@ last_positions: Dict[int, Dict[str, float]] = {}
 
 
 def bad_speed(last_pos, new_pos):
+    res = False
     time = (new_pos['time']-last_pos['time']).total_seconds()
     distance = GD((last_pos['lat'], last_pos['lon']),
                   (new_pos['lat'], new_pos['lon'])).km
     speed = distance*1000/time
-    return speed > 60
+    new_pos['speed']=speed
+    accel = (speed-last_pos['speed'])/time
+    if (speed > 30)or(accel>3):
+        res = True 
+    return res
 
 
 class ListenPortView(View):
@@ -32,11 +37,13 @@ class ListenPortView(View):
         #  Отбрасываем если нереальная скорость
         last_pos = last_positions.get(request.GET['id'])
         new_pos = {'lat': request.GET['lat'],
-                   'lon': request.GET['lon'], 'time': new_datetime}
+                   'lon': request.GET['lon'], 'time': new_datetime, 'speed': 0}
         if last_pos:
             if bad_speed(last_pos, new_pos):
                 return HttpResponse()
+        
         last_positions[request.GET['id']] = new_pos
+        
         gps_point = Tracks()
         gps_point.tracker_id = request.GET['id']
         gps_point.tracker_m_id = tracker.id
