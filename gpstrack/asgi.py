@@ -12,7 +12,8 @@ import os
 from django.core.asgi import get_asgi_application
 from websocket.middleware import websockets
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'gpstrack.settings')
+if os.environ.get('DJANGO_SETTINGS_MODULE') == None:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'gpstrack.settings')
 
 application = get_asgi_application()
 application = websockets(application)

@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <title>{% block title %}Главная{% endblock %} :: GPS monitoring</title>
     <link rel="stylesheet" type="text/css" href="{% static 'monitoring/style.css' %}">
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=29f3cef6-691c-434b-9ac9-3ff353a4e5db&lang=ru_RU"
-            type="text/javascript">
-    </script>
+    {% block head %}
+    {% endblock %}    
 </head>
 <body>
     <header>

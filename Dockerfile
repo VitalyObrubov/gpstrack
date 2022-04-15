@@ -9,6 +9,7 @@ COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 # Скопируем остальные файлы в контейнер
 COPY . .
-# запускаем скрипт
+ENV DJANGO_SETTINGS_MODULE="gpstrack.settings_dep"
 EXPOSE 8000
+# запускаем скрипт
 CMD ["uvicorn", "gpstrack.asgi:application", "--host", "0.0.0.0", "--port", "8000"]

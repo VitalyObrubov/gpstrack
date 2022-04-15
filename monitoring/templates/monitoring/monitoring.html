@@ -1,6 +1,10 @@
 {% extends "layout/basic.html" %}
 {% block title %}GPS monitoring{% endblock %}
-
+{% block head %}
+<script src="https://api-maps.yandex.ru/2.1/?apikey=29f3cef6-691c-434b-9ac9-3ff353a4e5db&lang=ru_RU"
+        type="text/javascript">
+</script>    
+{% endblock %}
 {% block content %}
      <fieldset>
         <legend>Параметры трека:</legend> 
@@ -35,7 +39,7 @@
     document.getElementById("getTrack").onclick = getTrack;
     document.getElementById("delTrack").onclick = delTrack;
     document.getElementById("getFile").onclick = getFile;
-    path = 'ws://193.29.56.83:8000/ws/connect/';
+    path = "{{ socketpath }}";
     user_id = {{ user.id }}
     ymaps.ready(init);
 </script>

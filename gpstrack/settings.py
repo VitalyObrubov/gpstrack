@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#9a(&t-cn$ab66qau^8rv6(n4oi@5idtr+gn_2q4kn5k(8s234'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -81,9 +81,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'gpstrack',
-        'USER': 'gpstrack_user',
-        'PASSWORD': 'gpstrack_user_password',
-        'HOST': '193.29.56.83',
+        'USER': 'db_user',
+        'PASSWORD': '*******',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -138,3 +138,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGOUT_REDIRECT_URL = 'monitoring:index'
 
+SOCKET_PATH = 'ws://localhost:8000/ws/connect/'
