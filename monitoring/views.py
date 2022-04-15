@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import RegisterUserForm, TrackerForm, ChangeUserInfoForm
 from listenports.models import Trackers
+from django.conf import settings
 
 
 class IndexView(View):
@@ -27,6 +28,7 @@ class MonitoringView(LoginRequiredMixin, View):
     def get(self, request):
         context = {}
         context['trackers'] = request.user.trackers_set.all()
+        context['socketpath'] = settings.SOCKET_PATH
         return render(request, 'monitoring/monitoring.html', context)
 
 

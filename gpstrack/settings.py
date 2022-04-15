@@ -81,8 +81,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'gpstrack',
-        'USER': 'gpstrack_user',
-        'PASSWORD': 'gpstrack_user_password',
+        'USER': 'db_user',
+        'PASSWORD': '*******',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -138,3 +138,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGOUT_REDIRECT_URL = 'monitoring:index'
 
+SOCKET_PATH = 'ws://localhost:8000/ws/connect/'

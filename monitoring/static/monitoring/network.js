@@ -1,8 +1,5 @@
 class Connection {
     constructor(onOpen, onMessage, onClose, onError) {
-        if (path === '${CONNECT_PATH}') {
-            path = 'ws://localhost:8000/ws/connect/';
-        }
         this.connection = new WebSocket(path);
         this.connection.onmessage = onMessage;
         this.connection.onclose = onClose;
