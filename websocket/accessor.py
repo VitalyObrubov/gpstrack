@@ -1,6 +1,6 @@
 import json
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from asgiref.sync import sync_to_async
 from dataclasses import asdict
 import gpxpy as gpx
@@ -13,6 +13,8 @@ from listenports.models import Trackers
 from django.contrib.auth.models import User
 from .const import ServerEventKind, Event
 
+def utc_to_local(utc_dt):
+    return utc_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
 
 @sync_to_async
 def get_trackers(data: dict):
@@ -28,11 +30,14 @@ def get_trackers(data: dict):
             pos = tracker.tracks.latest("timestamp")
             tracker_d["lon"] = pos.lon
             tracker_d["lat"] = pos.lat
+            
             delta = (datetime.now() -
-                     pos.timestamp.replace(tzinfo=None)).total_seconds()
-            if delta < 60:
+                     pos.timestamp.replace(tzinfo=None))
+            sdelta = delta.total_seconds()
+            tracker_d["last_time"] = str(delta).split(".")[0] # utc_to_local(pos.timestamp)
+            if sdelta < 60:
                 tracker_d["color"] = "green"
-            elif delta < 300:
+            elif sdelta < 300:
                 tracker_d["color"] = "yellow"
             else:
                 tracker_d["color"] = "red"
@@ -56,8 +61,8 @@ def get_trackers(data: dict):
 @sync_to_async
 def get_track(data: dict):
     tracker_id = data['tracker_id']
-    start_date = datetime.strptime(data['start_date'], "%Y-%m-%d")
-    end_date = datetime.strptime(data['end_date'], "%Y-%m-%d")+timedelta(1)
+    start_date = datetime.strptime(data['start_date'], "%Y-%m-%dT%H:%M:%S")
+    end_date = datetime.strptime(data['end_date'], "%Y-%m-%dT%H:%M:%S")
     start_date = timezone.make_aware(start_date, timezone.utc)
     end_date = timezone.make_aware(end_date, timezone.utc)
 

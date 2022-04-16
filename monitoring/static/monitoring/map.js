@@ -9,7 +9,7 @@ initMap = () => {
 
 let marks = new Map();
 
-addMark = (id, latitude, longitude, name = username, color = MY_COLOR) => {
+addMark = (id, latitude, longitude, name, color = MY_COLOR) => {
     let mark = new ymaps.Placemark([latitude, longitude], {
         balloonContentHeader: name,
     }, {

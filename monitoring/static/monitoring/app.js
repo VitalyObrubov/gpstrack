@@ -22,7 +22,7 @@ onMessage = (msg) => {
         let c_lat = 0; let c_lon = 0;
         for (let tracker of payload['trackers']) {
             removeMark(tracker['tracker_id']);
-            addMark(tracker['tracker_id'], tracker['lat'], tracker['lon'], tracker['tracker_name'], tracker['color']);
+            addMark(tracker['tracker_id'], tracker['lat'], tracker['lon'], tracker['tracker_name']+'<br>'+tracker['last_time'], tracker['color']);
             if (Number(tracker_id) === tracker['id']) {   
                 c_lat = tracker['lat'];
                 c_lon = tracker['lon'];
@@ -145,8 +145,9 @@ setInitials = () => {
     let radios = document.querySelectorAll('input[type="radio"]');
     start_date = document.getElementById("start_date");
     end_date = document.getElementById("end_date");
-    start_date.valueAsDate = new Date();
-    end_date.valueAsDate = new Date();   
+    now = new Date();
+    start_date.value = now.toISOString().slice(0,11)+'00:00:01';
+    end_date.value = now.toISOString().slice(0,11)+'23:59:59'; 
     for (let radio of radios) {
         radio.checked = true;
         break;

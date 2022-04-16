@@ -7,21 +7,24 @@ import requests
 from geopy.distance import geodesic as GD
 
 from listenports.models import Tracks, Trackers
+# ключ - ид трекера, значения - словарь с параметрами последней позиции
 last_positions: Dict[int, Dict[str, float]] = {}
 
 
 def bad_speed(last_pos, new_pos):
     res = False
     time = (new_pos['time']-last_pos['time']).total_seconds()
-    distance = GD((last_pos['lat'], last_pos['lon']),
+    distance = 1000*GD((last_pos['lat'], last_pos['lon']),
                   (new_pos['lat'], new_pos['lon'])).km
-    speed = distance*1000/time
-    new_pos['speed']=speed
-    accel = (speed-last_pos['speed'])/time
-    if (speed > 30):
+    if time == 0:
+        time = 1
+    speed = distance/time
+
+    #gps_speed = new_pos['speed']/3.6
+    new_pos['speed'] = speed
+    accel = (speed-float(last_pos['speed']))/time
+    if (speed > 30)or(accel>3)or(distance<5):
         res = True 
-    if (accel>3):
-         res = True
     return res
 
 
@@ -39,7 +42,7 @@ class ListenPortView(View):
         #  Отбрасываем если нереальная скорость
         last_pos = last_positions.get(request.GET['id'])
         new_pos = {'lat': request.GET['lat'],
-                   'lon': request.GET['lon'], 'time': new_datetime, 'speed': 0}
+                   'lon': request.GET['lon'], 'time': new_datetime, 'speed': request.GET['speed']}
         if last_pos:
             if bad_speed(last_pos, new_pos):
                 return HttpResponse()
